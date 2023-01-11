@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ErrorInfo, useState } from 'react'
 import "./Accomplishment.css"
 import ClipLoader from "react-spinners/ClipLoader";
 import confetti from "../../svg/confetti.svg"
@@ -17,8 +17,10 @@ function Accomplishment() {
 
     const handleSubmit = async () => {
         if(!title || !accomplishment || !valid) {
+
             setErrorMsg("Complete the items above to continue")
             setShowError(true)
+
             return 
         }
         
@@ -27,10 +29,15 @@ function Accomplishment() {
                 title,
                 accomplishment
             });
-        } catch (error) {
-            setErrorMsg(error.response.data.msg)
+
+        } catch (error: any) {
+            const {status, data} = error.response
+            
+            setErrorMsg(data.msg)
             setShowError(true)
+
             return
+
         }
 
         setShowSuccess(true)
