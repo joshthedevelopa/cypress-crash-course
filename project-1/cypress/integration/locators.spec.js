@@ -20,6 +20,21 @@ describe("Locators", () => {
         cy.get("button.Elements-btn");
 
         // Ge all elements by tab name, class and type attributes
+        cy.getByTestId('btn-id-1')
+    })
+
+    it("locating elements with contains", () => {
+        // Get element by text
+        cy.contains("Unique Text");
+
+        // Get element by no unique text
+        cy.contains("Not Unique Text");
+
+        // With selector 
+        cy.contains("[type='submit']", "Not Unique Text");
+
+        // Can be chained
+        cy.get("[type='submit']").contains("Not Unique Text");
     })
 
 })
